@@ -1,6 +1,29 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, $cordovaNativeAudio, $timeout) {
+
+  $cordovaNativeAudio
+    .preloadSimple('click', 'http://172.16.2.197:7000/02%20Barrump.mp3')
+    .then(function (msg) {
+      console.log(msg);
+    }, function (error) {
+      alert(error);
+  });
+
+  $scope.play = function () {
+    $cordovaNativeAudio.play('click');
+    $cordovaNativeAudio.loop('music');
+
+    // stop 'music' loop and unload
+    //$timeout(function () {
+    //  $cordovaNativeAudio.stop('music');
+
+    //  $cordovaNativeAudio.unload('click');
+    //  $cordovaNativeAudio.unload('music');
+    //}, 1000 * 60);
+  };
+
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
